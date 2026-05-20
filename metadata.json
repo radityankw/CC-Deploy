@@ -1,0 +1,6 @@
+{
+  "name": "E-Learning Platform Blueprint",
+  "description": "Rancangan arsitektur, panduan, kode dasar Laravel + Vue.js, serta simulasi interaktif platform pembelajaran pembelajaran digital.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
