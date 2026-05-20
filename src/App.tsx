@@ -6,205 +6,287 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { 
-  Terminal, 
-  BookOpen, 
-  Database, 
-  Cpu, 
-  Layout, 
-  Compass, 
-  HelpCircle,
-  Code2,
-  BookmarkCheck,
-  Server,
-  UserCheck
+  Cloud, BookOpen, Activity, Coins, Info, Layers, 
+  HelpCircle, Compass, ShieldCheck, Cpu, ArrowDown, ChevronRight
 } from 'lucide-react';
-import DemoTab from './components/DemoTab';
-import GuideTab from './components/GuideTab';
+
+// Import our modular sub-components
+import IaaS_PaaS_SaaS from './components/IaaS_PaaS_SaaS';
+import CloudPricingCalculator from './components/CloudPricingCalculator';
+import CloudArchitectureBuilder from './components/CloudArchitectureBuilder';
+import DeploymentModels from './components/DeploymentModels';
+import InteractiveQuiz from './components/InteractiveQuiz';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'sandbox' | 'docs'>('sandbox');
+  const [activeTab, setActiveTab] = useState<'fundamental' | 'models' | 'builder' | 'calculator' | 'quiz'>('fundamental');
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans antialiased text-slate-800">
+    <div className="min-h-screen bg-[#FDFCFB] text-[#1C1C1C] flex flex-col font-serif pb-16 selection:bg-blue-600 selection:text-white">
       
-      {/* Top Navigation & Branding Header */}
-      <nav className="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-indigo-600 text-white rounded-xl shadow-md">
-              <GraduationCap className="w-6 h-6" />
+      {/* Floating Header */}
+      <header className="sticky top-0 z-50 bg-[#FDFCFB]/90 backdrop-blur-md border-b border-[#1C1C1C] px-6 py-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-sm bg-blue-600 flex items-center justify-center shadow-sm">
+              <Cloud className="w-4 h-4 text-white" />
             </div>
             <div>
-              <h1 className="text-sm font-black text-slate-900 tracking-tight leading-4 flex items-center gap-1.5">
-                BelajarKuy! 
-                <span className="text-[10px] bg-indigo-50 text-indigo-700 font-mono font-bold px-1.5 py-0.5 rounded-full border border-indigo-100">
-                  Dev Blueprint
-                </span>
-              </h1>
-              <p className="text-[10px] text-slate-400 font-mono mt-0.5">Vue 3 + Laravel 11 + Supabase / MySQL</p>
-            </div>
-          </div>
-
-          {/* Tab Selection */}
-          <div className="flex bg-slate-100 p-1.5 rounded-xl border border-slate-200/40">
-            <button
-              onClick={() => setActiveTab('sandbox')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
-                activeTab === 'sandbox'
-                  ? 'bg-white text-indigo-600 shadow-sm'
-                  : 'text-slate-600 hover:text-slate-950'
-              }`}
-            >
-              <Terminal className="w-3.5 h-3.5" />
-              Simulasi Interaktif (Sandbox)
-            </button>
-            <button
-              onClick={() => setActiveTab('docs')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
-                activeTab === 'docs'
-                  ? 'bg-white text-indigo-600 shadow-sm'
-                  : 'text-slate-600 hover:text-slate-950'
-              }`}
-            >
-              <BookOpen className="w-3.5 h-3.5" />
-              Rancangan & Source Code
-            </button>
-          </div>
-
-          {/* Quick Platform Badges */}
-          <div className="hidden md:flex items-center gap-2 text-xs font-mono">
-            <span className="flex items-center gap-1 bg-slate-100 px-2 py-1 rounded text-slate-600 font-semibold border border-slate-200">
-              <Database className="w-3 h-3 text-emerald-600" />
-              MySQL/Supabase
-            </span>
-            <span className="flex items-center gap-1 bg-slate-100 px-2 py-1 rounded text-slate-600 font-semibold border border-slate-200">
-              <Server className="w-3 h-3 text-indigo-600" />
-              Laravel API
-            </span>
-          </div>
-        </div>
-      </nav>
-
-      {/* Main Showcase Layout */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        
-        {/* Intro Alert Banner */}
-        <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-1.5 max-w-3xl text-left">
-            <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 bg-indigo-50 text-indigo-600 rounded text-[9px] font-bold tracking-wide uppercase border border-indigo-100">
-                SYSTEM ARCHITECT DRAFT
+              <span className="font-display font-black text-xl italic tracking-tight text-[#1C1C1C]">
+                AwanAkademi
               </span>
-              <span className="text-xs text-slate-400 font-mono">Status: Ready to Copy & Test</span>
+              <span className="text-[9px] font-sans font-bold text-blue-600 block -mt-1 tracking-widest uppercase">
+                Interactive Cloud Lab
+              </span>
             </div>
-            <h2 className="text-xl font-black text-slate-900 tracking-tight">
-              Panduan Pembuatan Platform E-Learning Mandiri
-            </h2>
-            <p className="text-xs text-slate-500 leading-relaxed font-sans">
-              Selamat datang! Ini adalah modul analisis sistem dan pustaka kode siap pakai untuk membangun portal pembelajaran berbasis <strong>Laravel REST API</strong> sebagai Backend dan <strong>Vue.js 3 (Composition API)</strong> sebagai Frontend. Anda dapat berpindah tab untuk mempelajari skema tabel database, menyalin kodingan backend/frontend, atau langsung mencobanya di panel simulator interaktif.
+          </div>
+
+          {/* Elegant Sticky Navigation Anchors */}
+          <nav className="hidden md:flex items-center gap-1 bg-[#F7F4F0] p-1 rounded-sm border border-[#1C1C1C]">
+            <button
+              onClick={() => scrollToSection('fundamental-section')}
+              className="px-3.5 py-1.5 rounded-sm text-xs font-sans font-bold uppercase tracking-wider text-[#1C1C1C] hover:bg-[#1C1C1C] hover:text-[#FDFCFB] transition-all cursor-pointer"
+            >
+              Fundamental
+            </button>
+            <button
+              onClick={() => scrollToSection('service-models-card')}
+              className="px-3.5 py-1.5 rounded-sm text-xs font-sans font-bold uppercase tracking-wider text-[#1C1C1C] hover:bg-[#1C1C1C] hover:text-[#FDFCFB] transition-all cursor-pointer"
+            >
+              Layanan (IaaS)
+            </button>
+            <button
+              onClick={() => scrollToSection('deployment-models-card')}
+              className="px-3.5 py-1.5 rounded-sm text-xs font-sans font-bold uppercase tracking-wider text-[#1C1C1C] hover:bg-[#1C1C1C] hover:text-[#FDFCFB] transition-all cursor-pointer"
+            >
+              Deployment
+            </button>
+            <button
+              onClick={() => scrollToSection('architecture-builder-card')}
+              className="px-3.5 py-1.5 rounded-sm text-xs font-sans font-bold uppercase tracking-wider text-[#1C1C1C] hover:bg-[#1C1C1C] hover:text-[#FDFCFB] transition-all cursor-pointer"
+            >
+              Lab Arsitektur
+            </button>
+            <button
+              onClick={() => scrollToSection('pricing-calculator-card')}
+              className="px-3.5 py-1.5 rounded-sm text-xs font-sans font-bold uppercase tracking-wider text-[#1C1C1C] hover:bg-[#1C1C1C] hover:text-[#FDFCFB] transition-all cursor-pointer"
+            >
+              Kalkulator Biaya
+            </button>
+            <button
+              onClick={() => scrollToSection('interactive-quiz-card')}
+              className="px-4 py-1.5 bg-blue-600 text-[#FDFCFB] rounded-sm text-xs font-sans font-bold uppercase tracking-wider hover:bg-blue-700 transition-all cursor-pointer"
+            >
+              Kuis Cepat
+            </button>
+          </nav>
+        </div>
+      </header>
+
+      {/* Main Container */}
+      <main className="max-w-7xl mx-auto px-6 mt-8 flex-grow space-y-16 relative z-10 w-full">
+        
+        {/* HERO INTRO */}
+        <section id="hero-section" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch bg-[#F7F4F0] p-6 md:p-10 rounded-sm border-2 border-[#1C1C1C] overflow-hidden relative">
+          
+          <div className="lg:col-span-7 space-y-6 flex flex-col justify-between">
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 border border-blue-200 rounded-sm text-[10px] md:text-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                <span className="text-blue-600 font-sans tracking-widest uppercase font-bold">
+                  E-Learning Interaktif Satu Halaman
+                </span>
+              </div>
+
+              <h1 className="text-4xl md:text-7xl font-display font-black tracking-tighter leading-tight italic text-[#1C1C1C]">
+                Cloud Computing.
+              </h1>
+              <p className="font-sans text-xs uppercase tracking-widest text-[#1C1C1C] font-bold block -mt-2">
+                Pengantar Arsitektur Digital Untuk Skalabilitas Modern
+              </p>
+              
+              <p className="text-sm md:text-base text-[#1C1C1C]/90 font-serif leading-relaxed max-w-xl">
+                Komputasi awan bukan sekadar 'menyimpan file di internet'. Ini adalah revolusi penyediaan infrastruktur, platform, dan perangkat lunak dinamis di mana Anda hanya membayar apa yang Anda pergunakan (**Pay-As-You-Go** & **On-Demand**).
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-3 pt-2">
+              <button
+                onClick={() => scrollToSection('architecture-builder-card')}
+                className="px-6 py-3 bg-[#1C1C1C] text-[#FDFCFB] hover:bg-blue-600 font-sans font-bold uppercase tracking-widest text-xs transition-with duration-300 flex items-center gap-2 border border-[#1C1C1C] cursor-pointer"
+              >
+                Mulai Simulasi Topologi
+                <ChevronRight className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => scrollToSection('interactive-quiz-card')}
+                className="px-6 py-3 bg-white text-[#1C1C1C] hover:bg-gray-100 font-sans font-bold uppercase tracking-widest text-xs transition-with duration-300 flex items-center gap-1 border border-[#1C1C1C] cursor-pointer"
+              >
+                Uji Pengetahuan (Kuis)
+              </button>
+            </div>
+          </div>
+
+          {/* Quick interactive infographic on the right */}
+          <div className="lg:col-span-5 bg-white p-6 rounded-sm border border-[#1C1C1C] shadow-sm flex flex-col justify-between">
+            <div>
+              <span className="text-[10px] font-sans font-black text-blue-600 uppercase tracking-widest">Analisis Komparatif</span>
+              <h3 className="text-xl font-display font-bold text-[#1C1C1C] mt-1 italic">Mengapa Industri Bermigrasi?</h3>
+              
+              <div className="space-y-4 mt-6">
+                <div className="flex items-start gap-3.5 text-xs">
+                  <div className="p-1 px-1.5 bg-[#F7F4F0] border border-[#1C1C1C] text-[#1C1C1C] font-mono font-bold shrink-0">01</div>
+                  <div>
+                    <span className="font-sans font-extrabold uppercase tracking-wide block text-[#1C1C1C]">Tanpa Batas Fisik (Zero Hardwares)</span>
+                    <span className="text-slate-600 text-[11px] font-serif leading-normal mt-0.5 block">Tak perlu merakit rack server, menarik kabel, pendingin AC jumbo, atau membeli genset listrik cadangan.</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3.5 text-xs">
+                  <div className="p-1 px-1.5 bg-[#F7F4F0] border border-[#1C1C1C] text-[#1C1C1C] font-mono font-bold shrink-0">02</div>
+                  <div>
+                    <span className="font-sans font-extrabold uppercase tracking-wide block text-[#1C1C1C]">Skalabilitas Elastis (Elasticity)</span>
+                    <span className="text-slate-600 text-[11px] font-serif leading-normal mt-0.5 block">Server bisa naik spek secara kilat (scale up) saat dibanjiri jutaan pengguna, lalu menciut (scale down) ketika malam tiba demi menghemat tagihan.</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3.5 text-xs">
+                  <div className="p-1 px-1.5 bg-[#F7F4F0] border border-[#1C1C1C] text-[#1C1C1C] font-mono font-bold shrink-0">03</div>
+                  <div>
+                    <span className="font-sans font-extrabold uppercase tracking-wide block text-[#1C1C1C]">Ekonomi Pay-As-You-Go OpEx</span>
+                    <span className="text-slate-600 text-[11px] font-serif leading-normal mt-0.5 block">Anda hanya didenda tagihan untuk jam operasi virtual server Anda saat aktif. Adil, transparan, tak ada server yang dibiarkan mubazir.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 pt-4 border-t border-[#1C1C1C]/40 flex justify-between items-center text-[10px] font-sans uppercase tracking-widest text-slate-500 font-bold">
+              <span>Kurikulum Industri Terstandarisasi</span>
+              <button 
+                onClick={() => scrollToSection('fundamental-section')}
+                className="text-blue-600 hover:underline flex items-center gap-0.5 font-bold"
+              >
+                Lihat Dasar NIST
+                <ArrowDown className="w-3 h-3" />
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 1: COMPREHENSIVE FUNDAMENTAL (NIST Standard Indonesian) */}
+        <section id="fundamental-section" className="space-y-6">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <span className="text-xs font-sans text-blue-600 tracking-[0.2em] uppercase font-bold block">Dasar Teori Komputasi Awan</span>
+            <h2 className="text-3xl md:text-5xl font-display font-black text-[#1C1C1C] italic">5 Pilar Pokok Karakteristik Cloud (NIST)</h2>
+            <div className="h-[2px] bg-blue-600 w-24 mx-auto my-3" />
+            <p className="text-sm text-slate-600 max-w-xl mx-auto italic">
+              Lembaga Standarisasi Nasional Amerika (NIST) menetapkan 5 syarat wajib agar sebuah teknologi dapat dikategorikan sebagai "Cloud Computing" yang sah:
             </p>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0">
-            <div className="text-right hidden sm:block">
-              <p className="text-[10px] text-slate-400 font-mono">Last updated</p>
-              <p className="text-xs font-bold text-slate-700">Mei 2026 (Laravel 11, Vue 3)</p>
-            </div>
-            <div className="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 border border-indigo-100">
-              <Code2 className="w-5 h-5" />
-            </div>
-          </div>
-        </div>
-
-        {/* Tab Contents loaded inside a layout animated frame */}
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2 }}
-          className="bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 shadow-sm text-left"
-        >
-          {activeTab === 'sandbox' ? (
-            <div className="space-y-6">
-              <div className="border-b border-slate-100 pb-4">
-                <h4 className="text-base font-bold text-slate-900 flex items-center gap-2">
-                  <Terminal className="text-indigo-600 w-5 h-5" />
-                  Area Simulasi Aplikasi (Vue.js + Laravel API Sandbox)
-                </h4>
-                <p className="text-xs text-slate-500 mt-1">
-                  Uji coba alur pendaftaran (Register), masuk akun (Login), pengambilan daftar materi dari Laravel, serta penyelesaian materi dengan kuis interaktif yang secara otomatis tercatat di baris log REST API.
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-5">
+            {/* Char 1 */}
+            <div className="p-5 bg-white border border-[#1C1C1C] hover:bg-[#F7F4F0] rounded-sm transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <span className="text-[10px] font-sans font-extrabold text-blue-600 tracking-wider block">PILAR 01</span>
+                <h3 className="text-sm font-sans font-extrabold text-[#1C1C1C] uppercase mt-1 leading-snug">On-Demand Self-Service</h3>
+                <p className="text-xs text-slate-600 leading-relaxed mt-2.5 font-serif">
+                  Pengguna bisa menyewa VM, database, atau kapasitas storage secara mandiri lewat dashboard tanpa intervensi manual staf internal provider.
                 </p>
               </div>
-              <DemoTab />
             </div>
-          ) : (
-            <GuideTab />
-          )}
-        </motion.div>
 
-        {/* Informative Grid Benefits (Anti-slop, clean architectural highlights) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-          
-          <div className="bg-white border border-slate-200/60 p-5 rounded-2xl shadow-xs space-y-2">
-            <div className="w-9 h-9 bg-emerald-50 text-emerald-700 rounded-lg flex items-center justify-center border border-emerald-100 mb-2">
-              <Database className="w-4 h-4" />
+            {/* Char 2 */}
+            <div className="p-5 bg-white border border-[#1C1C1C] hover:bg-[#F7F4F0] rounded-sm transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <span className="text-[10px] font-sans font-extrabold text-blue-600 tracking-wider block">PILAR 02</span>
+                <h3 className="text-sm font-sans font-extrabold text-[#1C1C1C] uppercase mt-1 leading-snug">Broad Network Access</h3>
+                <p className="text-xs text-slate-600 leading-relaxed mt-2.5 font-serif">
+                  Semua instansi software dan resource bisa diakses tanpa hambatan melewati aneka perangkat (HP, Laptop, Tablet) di jaringan internet standar.
+                </p>
+              </div>
             </div>
-            <h5 className="text-xs font-bold text-slate-900 uppercase tracking-wider">Integritas Supabase / MySQL</h5>
-            <p className="text-xs text-slate-500 leading-normal font-sans">
-              Rancangan tabel memiliki foreign key referensial di tabel <code>user_progress</code> yang mereferensikan <code>users</code> dan <code>materials</code>. Memastikan relasi data aman dari orphanal records.
-            </p>
+
+            {/* Char 3 */}
+            <div className="p-5 bg-white border border-[#1C1C1C] hover:bg-[#F7F4F0] rounded-sm transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <span className="text-[10px] font-sans font-extrabold text-blue-600 tracking-wider block">PILAR 03</span>
+                <h3 className="text-sm font-sans font-extrabold text-[#1C1C1C] uppercase mt-1 leading-snug">Resource Pooling</h3>
+                <p className="text-xs text-slate-600 leading-relaxed mt-2.5 font-serif">
+                  Sumber daya fisik (CPU, RAM, HDD) dikelompokkan bersama oleh provider untuk melayani banyak tenant dengan isolasi keamanan data mutlak.
+                </p>
+              </div>
+            </div>
+
+            {/* Char 4 */}
+            <div className="p-5 bg-[#F7F4F0] border border-[#1C1C1C] hover:bg-white rounded-sm transition-all duration-300 flex flex-col justify-between ring-1 ring-[#1C1C1C]/10">
+              <div>
+                <span className="text-[10px] font-sans font-extrabold text-blue-600 tracking-wider block">PILAR 04</span>
+                <h3 className="text-sm font-sans font-extrabold text-[#1C1C1C] uppercase mt-1 leading-snug">Rapid Elasticity</h3>
+                <p className="text-xs text-slate-800 leading-relaxed mt-2.5 font-serif font-bold italic">
+                  Kapasitas server mengembang (scale-up) atau meremas kempis (scale-down) super kilat secara fleksibel sejalan fluktuasi grafik trafik real-time.
+                </p>
+              </div>
+            </div>
+
+            {/* Char 5 */}
+            <div className="p-5 bg-white border border-[#1C1C1C] hover:bg-[#F7F4F0] rounded-sm transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <span className="text-[10px] font-sans font-extrabold text-blue-600 tracking-wider block">PILAR 05</span>
+                <h3 className="text-sm font-sans font-extrabold text-[#1C1C1C] uppercase mt-1 leading-snug">Measured Service</h3>
+                <p className="text-xs text-slate-600 leading-relaxed mt-2.5 font-serif">
+                  Sistem pencatatan pemakaian berjalan otomatis dan sangat akurat, mirip sistem arloji pemakaian air PDAM atau pulsa listrik rumah Anda.
+                </p>
+              </div>
+            </div>
           </div>
+        </section>
 
-          <div className="bg-white border border-slate-200/60 p-5 rounded-2xl shadow-xs space-y-2">
-            <div className="w-9 h-9 bg-indigo-50 text-indigo-700 rounded-lg flex items-center justify-center border border-indigo-100 mb-2">
-              <Server className="w-4 h-4" />
-            </div>
-            <h5 className="text-xs font-bold text-slate-900 uppercase tracking-wider">Sanctum Token Guard</h5>
-            <p className="text-xs text-slate-500 leading-normal font-sans">
-              Seluruh rute pengambilan kurikulum materials dan submission hasil terlindungi di balik Sanctum Middleware API Laravel, menjauhkan pembobolan materi oleh pengguna luar.
-            </p>
-          </div>
+        {/* SECTION 2: INTERACTIVE SERVICE MODELS COMPONENT (IaaS, PaaS, SaaS) */}
+        <section id="service-models-section">
+          <IaaS_PaaS_SaaS />
+        </section>
 
-          <div className="bg-white border border-slate-200/60 p-5 rounded-2xl shadow-xs space-y-2">
-            <div className="w-9 h-9 bg-blue-50 text-blue-700 rounded-lg flex items-center justify-center border border-blue-100 mb-2">
-              <Layout className="w-4 h-4" />
-            </div>
-            <h5 className="text-xs font-bold text-slate-900 uppercase tracking-wider">Vue 3 setup & Tailwind</h5>
-            <p className="text-xs text-slate-500 leading-normal font-sans">
-              Templat Vue.js menggunakan standard industri <code>{"<script setup>"}</code> dengan pemanggilan API asinkronus Axios yang reaktif untuk memperbarui data layout secara instan.
-            </p>
-          </div>
+        {/* SECTION 3: COMPREHENSIVE DEPLOYMENT MODELS */}
+        <section id="deployment-models-section">
+          <DeploymentModels />
+        </section>
 
-        </div>
+        {/* SECTION 4: ARCHITECTURE SIMULATOR & LAB TOOL */}
+        <section id="architecture-simulator-section">
+          <CloudArchitectureBuilder />
+        </section>
+
+        {/* SECTION 5: CLOUD ECONOMY CALCULATOR */}
+        <section id="pricing-calculator-section">
+          <CloudPricingCalculator />
+        </section>
+
+        {/* SECTION 6: INTERACTIVE DRILL / QUIZ */}
+        <section id="quiz-section">
+          <InteractiveQuiz />
+        </section>
 
       </main>
 
-      {/* Footer Design Credits */}
-      <footer className="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-400 font-mono">
-        <div>BelajarKuy Platform Pembelajaran Blueprint & Sandbox • 2026</div>
-        <div className="mt-1 text-[10px] text-slate-300">Dibuat menggunakan spesifikasi arsitektur Laravel, Vue.js, Supabase, dan Tailwind CSS</div>
+      {/* Footer */}
+      <footer className="mt-20 border-t border-[#1C1C1C] pt-8 pb-4 text-center text-xs text-[#1C1C1C] max-w-7xl mx-auto w-full px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-2">
+          <Cloud className="w-4 h-4 text-blue-600" />
+          <span className="font-sans font-bold uppercase tracking-wider text-[11px]">© 2026 AwanAkademi. Kompilasi Satu Halaman Pembelajaran Interaktif.</span>
+        </div>
+        <div className="flex gap-4 font-sans font-bold text-slate-500 uppercase tracking-widest text-[10px]">
+          <span>Materi E-Learning</span>
+          <span>•</span>
+          <span>Insinyur Awan Masa Depan 🇮🇩</span>
+        </div>
       </footer>
-
     </div>
   );
 }
-
-// Simple Icon fallback logic
-function GraduationCap(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.91a2 2 0 0 0 1.66 0z" />
-      <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
-    </svg>
-  );
-}
-

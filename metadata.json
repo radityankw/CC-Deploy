@@ -1,6 +1,6 @@
 {
-  "name": "E-Learning Platform Blueprint",
-  "description": "Rancangan arsitektur, panduan, kode dasar Laravel + Vue.js, serta simulasi interaktif platform pembelajaran pembelajaran digital.",
+  "name": "Belajar Cloud Computing Interaktif",
+  "description": "Media pembelajaran interaktif mengenai konsep dasar cloud computing, model layanan (IaaS, PaaS, SaaS), model deployment, simulator arsitektur, kalkulator biaya, dan kuis pemahaman.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
