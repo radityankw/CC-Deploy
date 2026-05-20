@@ -39,7 +39,7 @@ export default function App() {
             </div>
             <div>
               <span className="font-display font-black text-xl italic tracking-tight text-[#1C1C1C]">
-                AwanAkademi
+                Cloud Academy
               </span>
               <span className="text-[9px] font-sans font-bold text-blue-600 block -mt-1 tracking-widest uppercase">
                 Interactive Cloud Lab
